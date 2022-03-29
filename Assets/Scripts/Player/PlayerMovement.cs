@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] 
-    private float m_moveSpeed = 5;
-
     [SerializeField] 
     private GameObject m_walkingArrows = null;
     
-    private CharacterController m_charController;
-    private Camera m_camera;
+    [SerializeField] 
+    private float m_moveSpeed = 5;
 
+    private Camera m_camera = null;
+    private CharacterController m_charController = null;
     private Coroutine m_currentMoveRoutine = null;
+    
+    public delegate void ReachedDestinationDelegate();
 
     private void Awake()
     {
@@ -25,8 +26,7 @@ public class Player : MonoBehaviour
         m_walkingArrows.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void MoveToPos(Vector3 targetPos)
+    public void MoveToPos(Vector3 targetPos, ReachedDestinationDelegate onReachedDest = null)
     {
         Vector3 playerPos = transform.position;
         if (NavMesh.SamplePosition(targetPos, out NavMeshHit navTargetHit, 10, NavMesh.AllAreas))
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
                     
                     m_walkingArrows.transform.position = navTargetHit.position;
                     m_walkingArrows.SetActive(true);
-                    m_currentMoveRoutine = StartCoroutine(MoveAlongPath(path));
+                    m_currentMoveRoutine = StartCoroutine(MoveAlongPath(path, onReachedDest));
                 }
                 else
                 {
@@ -66,7 +66,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveAlongPath(NavMeshPath path)
+    public void StopMovement()
+    {
+        if (m_currentMoveRoutine != null)
+        {
+            StopCoroutine(m_currentMoveRoutine);
+            m_walkingArrows.SetActive(false);
+        }
+    }
+    private IEnumerator MoveAlongPath(NavMeshPath path, ReachedDestinationDelegate onReachedDest)
     {
         int currentNode = 0;
         int numNodes = path.corners.Length;
@@ -87,8 +95,9 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    yield break;
                     //Finished moving
+                    onReachedDest?.Invoke();
+                    yield break;
                 }
             }
             else
@@ -96,23 +105,6 @@ public class Player : MonoBehaviour
                 dirToTarget.Normalize();
                 m_charController.Move(dirToTarget * m_moveSpeed * Time.deltaTime);
             }
-        }
-    }
-
-    public void Shrink()
-    {
-        StartCoroutine(Shrink_Internal());
-    }
-
-    private IEnumerator Shrink_Internal()
-    {
-        Vector3 startScale = transform.localScale;
-
-        for (int i = 0; i < 3; i++)
-        {
-            yield return new WaitForSeconds(0.2f);
-            
-            transform.localScale -= startScale * 0.2f;
         }
     }
 }
