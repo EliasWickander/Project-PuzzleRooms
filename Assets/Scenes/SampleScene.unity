@@ -962,6 +962,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 7211187347552329818, guid: 8e1dd5a1130dbf342bd139b983a49907, type: 3}
+      propertyPath: m_Name
+      value: Hook
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989375760434279737, guid: 8e1dd5a1130dbf342bd139b983a49907, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0b9615ceeefb4e74c82d351f0e266352, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e1dd5a1130dbf342bd139b983a49907, type: 3}
 --- !u!1001 &6688980861966941928
