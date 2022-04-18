@@ -42,10 +42,10 @@ public class Item : Interactable
         }
     }
 
-    public override void OnInteraction()
+    public override void OnInteractionSuccess()
     {
-        base.OnInteraction();
-
+        base.OnInteractionSuccess();
+        
         m_isPickedUp = true;
     }
 }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1629424228142049625}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,6 +91,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Visual
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 81a308d4a1101e44d94ddd5b7b4849ae, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81a308d4a1101e44d94ddd5b7b4849ae, type: 3}
 --- !u!4 &1158677405099537987 stripped
@@ -98,3 +102,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81a308d4a1101e44d94ddd5b7b4849ae, type: 3}
   m_PrefabInstance: {fileID: 1702021509109240232}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1972473671902227705 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 81a308d4a1101e44d94ddd5b7b4849ae, type: 3}
+  m_PrefabInstance: {fileID: 1702021509109240232}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1875407522325286725
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972473671902227705}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.06877503, y: 2.605431, z: 1.6414187}
+  m_Center: {x: -0.00000014714897, y: 0, z: 0}
+--- !u!114 &2250219394694379082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972473671902227705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afe2741a95255546b8cf06b66c187da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_requiredItem: {fileID: 11400000, guid: 460c0dabda11a1944bbde3abfdcb1056, type: 2}
+  m_timeToOpen: 1
+  m_targetYaw: -125
+  m_doorFrame: {fileID: 1629424228142049625}

@@ -5,9 +5,8 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    [SerializeField]
-    private bool m_canInteract = true;
-    public bool CanInteract => m_canInteract;
+    [SerializeField] 
+    private ItemData m_requiredItem = null;
 
     protected virtual void Awake()
     {
@@ -25,7 +24,26 @@ public abstract class Interactable : MonoBehaviour
     }
 
     
-    public virtual void OnInteraction()
+    public virtual bool OnInteractionAttempt(ItemData selectedItem)
+    {
+        if (selectedItem == m_requiredItem)
+        {
+            OnInteractionSuccess();
+            return true;
+        }
+        else
+        {
+            OnInteractionFailed();
+            return false;
+        }
+    }
+
+    public virtual void OnInteractionSuccess()
+    {
+        
+    }
+
+    public virtual void OnInteractionFailed()
     {
         
     }

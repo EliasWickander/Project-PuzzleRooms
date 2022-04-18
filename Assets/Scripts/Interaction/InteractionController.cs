@@ -46,16 +46,15 @@ public class InteractionController : MonoBehaviour
     private void Interact(Interactable interactable)
     {
         m_movement.StopMovement();
-        m_currentInteraction.OnInteraction();
-        
-        if (interactable is Item item)
+        if (m_currentInteraction.OnInteractionAttempt(null))
         {
-            m_onItemCollected?.Invoke(item.Data);
+            if (interactable is Item item)
+            {
+                m_onItemCollected?.Invoke(item.Data);
+            }
         }
-        
-        m_currentInteraction = null;
-        
-        
+
+        m_currentInteraction = null;   
     }
     
     public bool CheckInteraction(out Interactable foundInteractable)
@@ -70,16 +69,10 @@ public class InteractionController : MonoBehaviour
 
                 if (foundInteractable == null)
                 {
-                    Debug.LogError("Hit an object with interactable layer but it doesn't have the Interaction script on it");
+                    Debug.LogError("Hit an object with interactable layer but it doesn't have the Interactable script on it");
                     return false;
                 }
 
-                if (!foundInteractable.CanInteract)
-                {
-                    Debug.LogError("Hit interactable object but its CanInteract is false");
-                    return false;
-                }
-                
                 return true;
             }
         }

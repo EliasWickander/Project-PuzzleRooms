@@ -4,31 +4,57 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Image))]
 public class ItemUI : MonoBehaviour
 {
+    [SerializeField] 
+    private ItemIconUI m_iconUI;
+
+    public ItemIconUI IconUI => m_iconUI;
+
     private ItemData m_containedItem = null;
-    
-    private Image m_image = null;
+    public ItemData ContainedItem => m_containedItem;
+
+    public bool IsSelected => m_iconUI.IsDragging;
+    public Action<ItemData, Vector2> OnItemAttemptInteract;
 
     private void Awake()
     {
-        m_image = GetComponent<Image>();
-        
+        if (m_iconUI == null)
+        {
+            Debug.LogError("IconUI cannot be null. Disabling script", gameObject);
+            enabled = false;
+            return;
+        }
+
         ClearItem();
+    }
+
+    private void OnEnable()
+    {
+        m_iconUI.OnItemAttemptInteract += OnItemAttemptInteractCallback;
+    }
+
+    private void OnDisable()
+    {
+        m_iconUI.OnItemAttemptInteract -= OnItemAttemptInteractCallback;
     }
 
     public void AddItem(ItemData item)
     {
         gameObject.SetActive(true);
-        m_image.sprite = item.m_iconSprite;
+        m_iconUI.UpdateIcon(item);
+        
         m_containedItem = item;
     }
 
     public void ClearItem()
     {
-        m_image.sprite = null;
-
+        m_iconUI.UpdateIcon(null);
         gameObject.SetActive(false);
+    }
+
+    private void OnItemAttemptInteractCallback(ItemData itemData, Vector2 screenPos)
+    {
+        OnItemAttemptInteract?.Invoke(itemData, screenPos);
     }
 }

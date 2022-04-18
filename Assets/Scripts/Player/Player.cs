@@ -7,7 +7,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(InteractionController))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Inventory m_inventory;
+    [SerializeField] private InventoryData m_inventory;
 
     private InteractionController m_interactionController = null;
 

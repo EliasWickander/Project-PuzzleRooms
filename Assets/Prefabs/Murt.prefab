@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d220f9fbf0558ec429cf690e215dc383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_inventory: {fileID: 11400000, guid: 35faf24c996ff2d4eb2584be94fee0ac, type: 2}
 --- !u!114 &4526585645031068280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +176,7 @@ MonoBehaviour:
   m_interactableMask:
     serializedVersion: 2
     m_Bits: 256
+  m_pickUpRadius: 1.62
 --- !u!143 &8661974444765432131
 CharacterController:
   m_ObjectHideFlags: 0
